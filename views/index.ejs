@@ -1,0 +1,19 @@
+<b>Count </b>: <span id="score"><%= score  %></span><br>
+<button id="myButton"> Add Cookie </button>
+<script>
+    let button = document.getElementById('myButton');
+    button.addEventListener('click', (e) => {
+        fetch('/clicked', {method: 'POST'})
+            .then(response => console.log("success"))
+            .catch(error => console.log(error));
+    });
+
+    // Set inetrval to retrieve value
+    setInterval(() => {
+        //fetch. then // innerHTML getelementbyid
+        fetch('/clicks', {method: 'GET'})
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
+    }, 1000);
+</script>
