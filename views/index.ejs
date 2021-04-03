@@ -1,7 +1,8 @@
-<b>Count </b>: <span id="score"><%= score  %></span><br>
+<b>Cookies count </b>: <span id="score"><%= score  %></span><br>
 <button id="myButton"> Add Cookie </button>
 <script>
     let button = document.getElementById('myButton');
+    let cookieCounter = document.getElementById('score');
     button.addEventListener('click', (e) => {
         fetch('/clicked', {method: 'POST'})
             .then(response => console.log("success"))
@@ -13,7 +14,9 @@
         //fetch. then // innerHTML getelementbyid
         fetch('/clicks', {method: 'GET'})
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                cookieCounter.innerHTML = data.score;
+            })
             .catch(error => console.log(error));
     }, 1000);
 </script>
