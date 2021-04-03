@@ -9,24 +9,23 @@ let global_score = 0;
 // connect to the db
 // mongoose.connect("mongodb://127.0.0.1:27017/cookie", {useNewUrlParser: true, useUnifiedTopology: true});
 
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.set('view engine', 'ejs'); 
 
 // serve the homepage
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.render("index", {score: global_score});
 });
 
-// Click POST Route to save to mongo 
+// @route POST: Route for increment count action
 app.post('/clicked', (req, res) => {
-    console.log("click recieved");
 
     // For now we can just use the global variable to store 
     global_score += 1;
 });
 
-// get request for clicks count
+// @route GET: cookies count in json format
 app.get('/clicks', (req, res) => {
-  res.send(global_score);
+  res.json({score: global_score});
 });
 
 app.listen(8080, () => {
